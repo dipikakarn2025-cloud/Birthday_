@@ -1,0 +1,257 @@
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Body background visible before slideshow */
+body {
+  font-family: 'Poppins', sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  color: #ffffff;
+  background: linear-gradient(135deg, #1d2671, #c33764);
+}
+
+/* Background slideshow */
+.slideshow {
+  position: fixed;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+  z-index: 0;
+}
+
+/* Active slideshow */
+.slideshow.active {
+  opacity: 1;
+}
+
+/* Main content */
+.container {
+  position: relative;
+  z-index: 2;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* Heading */
+h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  animation: fadeInDown 1.5s ease;
+}
+
+/* Sub heading */
+h2 {
+  font-size: 1.4rem;
+  font-weight: 300;
+  margin-bottom: 30px;
+  animation: fadeInUp 2s ease;
+}
+
+/* Heart animation */
+.heart {
+  font-size: 4rem;
+  margin-bottom: 15px;
+  animation: pulse 1.2s infinite;
+}
+
+/* Button */
+button {
+  padding: 14px 32px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 30px;
+  background: #ffcc00;
+  color: #000;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* 🎈 Balloon */
+.balloon {
+  position: absolute;
+  bottom: -120px;
+  width: 45px;
+  height: 60px;
+  border-radius: 50% 50% 45% 45%;
+  animation: floatUp linear infinite;
+  box-shadow: inset -6px -10px 15px rgba(0,0,0,0.2);
+}
+
+.balloon::after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  width: 2px;
+  height: 35px;
+  background: rgba(255,255,255,0.8);
+}
+
+/* Animations */
+@keyframes floatUp {
+  from {
+    transform: translateY(0) rotate(0deg);
+  }
+  to {
+    transform: translateY(-140vh) rotate(10deg);
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 📱 Mobile responsive */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+  }
+
+  button {
+    padding: 12px 26px;
+    font-size: 0.95rem;
+  }
+}
+
+
+/* 📱 Mobile Optimization */
+@media screen and (max-width: 600px) {
+
+  body {
+    overflow: hidden;
+  }
+
+  .container {
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 1.05rem;
+    line-height: 1.4;
+    margin-bottom: 24px;
+  }
+
+  .heart {
+    font-size: 3rem;
+    margin-bottom: 10px;
+  }
+
+  button {
+    width: 90%;
+    max-width: 320px;
+    padding: 14px;
+    font-size: 1rem;
+  }
+
+  /* Slideshow image fit for mobile */
+  .slideshow {
+    background-position: center top;
+  }
+
+  /* Balloons smaller on mobile */
+  .balloon {
+    width: 35px;
+    height: 50px;
+  }
+
+  .balloon::after {
+    height: 28px;
+  }
+}
+
+
+/* 📱 Mobile image & slideshow fix */
+@media screen and (max-width: 600px) {
+
+  .slideshow {
+    width: 100vw;
+    height: 100vh;
+
+    /* Prevent blur & stretching */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    /* Smooth transition */
+    transition: background-image 1s ease-in-out;
+  }
+
+  /* If you use <img> instead of background-image */
+  .slideshow img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;       /* fills screen without distortion */
+    object-position: center; /* keeps face centered */
+  }
+}
+
+
+/* 📱 Mobile – show full image without cutting */
+@media screen and (max-width: 600px) {
+
+  .slideshow {
+    width: 100vw;
+    height: 100vh;
+
+    /* Show full image */
+    background-size: contain;     /* KEY FIX */
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /* Fill empty space nicely */
+    background-color: #000;       /* black cinematic background */
+
+    transition: background-image 1s ease-in-out;
+  }
+}
